@@ -13,11 +13,19 @@ import time
 import sys
 from pathlib import Path
 
-# Add app to path
-sys.path.insert(0, str(Path(__file__).parent))
+# Add app to path - ensure we can import app modules
+current_dir = Path(__file__).parent.absolute()
+sys.path.insert(0, str(current_dir))
 
-from app.core import GoldPriceApp
-from app.config import Config
+# Import app modules
+try:
+    from app.core import GoldPriceApp
+    from app.config import Config
+except ImportError as e:
+    st.error(f"Import error: {e}")
+    st.error(f"Current directory: {current_dir}")
+    st.error(f"Python path: {sys.path[:3]}")
+    st.stop()
 
 # Page configuration
 st.set_page_config(

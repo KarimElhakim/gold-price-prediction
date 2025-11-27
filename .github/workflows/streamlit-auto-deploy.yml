@@ -1,0 +1,39 @@
+name: Streamlit Cloud Auto-Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Verify Structure
+        run: |
+          echo "Verifying application structure..."
+          python -c "
+          import sys
+          sys.path.insert(0, '.')
+          from app.config import Config
+          from app.core import GoldPriceApp
+          print('✓ Application structure verified!')
+          "
+      
+      - name: Deployment Status
+        run: |
+          echo "## Streamlit Cloud Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Application structure verified!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The app should auto-deploy on Streamlit Cloud." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "If deployment fails:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Check Streamlit Cloud dashboard" >> $GITHUB_STEP_SUMMARY
+          echo "2. Verify secrets are set: KAGGLE_API_TOKEN, GOLDAPI_API_KEY" >> $GITHUB_STEP_SUMMARY
+          echo "3. Ensure main file is: live_dashboard.py" >> $GITHUB_STEP_SUMMARY
+

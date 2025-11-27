@@ -9,9 +9,16 @@ from typing import Optional
 class Config:
     """Application configuration"""
     
-    # API Keys (can be set via environment variables)
-    KAGGLE_API_TOKEN: str = os.getenv("KAGGLE_API_TOKEN", "KGAT_b352cb91c46b038224e3d90adb8d8c32")
-    GOLDAPI_API_KEY: str = os.getenv("GOLDAPI_API_KEY", "goldapi-ap54smihd5h4h-io")
+    # API Keys (can be set via environment variables or Streamlit secrets)
+    try:
+        import streamlit as st
+        # Try to get from Streamlit secrets first
+        KAGGLE_API_TOKEN: str = st.secrets.get("KAGGLE_API_TOKEN", os.getenv("KAGGLE_API_TOKEN", "KGAT_b352cb91c46b038224e3d90adb8d8c32"))
+        GOLDAPI_API_KEY: str = st.secrets.get("GOLDAPI_API_KEY", os.getenv("GOLDAPI_API_KEY", "goldapi-ap54smihd5h4h-io"))
+    except (ImportError, AttributeError, FileNotFoundError):
+        # Fallback to environment variables or defaults
+        KAGGLE_API_TOKEN: str = os.getenv("KAGGLE_API_TOKEN", "KGAT_b352cb91c46b038224e3d90adb8d8c32")
+        GOLDAPI_API_KEY: str = os.getenv("GOLDAPI_API_KEY", "goldapi-ap54smihd5h4h-io")
     
     # Paths
     BASE_DIR: Path = Path(__file__).parent.parent
