@@ -1,0 +1,15 @@
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+#
+# Types: feat, fix, docs, style, refactor, perf, test, chore, ci, build
+# Example:
+# feat(api): add Alpha Vantage API integration
+#
+# Implement real-time gold price fetching from Alpha Vantage.
+# Includes error handling for rate limits and API errors.
+#
+# Closes #123
+
