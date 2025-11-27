@@ -35,4 +35,24 @@ Configure your Kaggle API token in the Configuration section of the notebook. Op
 
 ## Usage
 
+### Option 1: Google Colab (Recommended for Quick Start)
+
 Open this notebook in Google Colab directly from GitHub. All required packages are installed automatically in the first cell.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/KarimElhakim/gold-price-prediction/blob/main/gold_price_prediction.ipynb)
+
+### Option 2: Local Development
+
+To run the notebook locally on your machine:
+
+1. **Quick Setup (Automated)**:
+   - **Windows**: Run `setup_local.ps1` in PowerShell
+   - **macOS/Linux**: Run `bash setup_local.sh`
+
+2. **Manual Setup**:
+   - Install Python 3.8+ and create a virtual environment
+   - Install dependencies: `pip install -r requirements.txt`
+   - Download TextBlob corpora: `python -m textblob.download_corpora`
+   - Start Jupyter: `jupyter notebook`
+
+See [SETUP.md](SETUP.md) for detailed installation instructions and troubleshooting.
