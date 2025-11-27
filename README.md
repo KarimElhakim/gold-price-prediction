@@ -1,5 +1,8 @@
 # Gold Price Prediction
 
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](VERSION)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 Machine learning project that predicts gold price direction (up/down) and price range using historical data, news sentiment analysis, and real-time market data.
 
 ## Overview
@@ -15,8 +18,8 @@ The models predict both the direction of price movement (classification) and the
 ## Data Sources
 
 1. Historical price data: Kaggle gold price prediction dataset
-2. News sentiment: Google RSS feeds with natural language processing
-3. Real-time prices: Free APIs (exchangerate-api, goldprice.org, Alpha Vantage)
+2. News sentiment: Google RSS feeds with natural language processing and price direction indicators
+3. Real-time prices: Alpha Vantage API for current gold market prices
 
 ## Features
 
