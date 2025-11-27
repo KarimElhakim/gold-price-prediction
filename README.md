@@ -19,7 +19,7 @@ The models predict both the direction of price movement (classification) and the
 
 1. Historical price data: Kaggle gold price prediction dataset
 2. News sentiment: Google RSS feeds with natural language processing and price direction indicators
-3. Real-time prices: Alpha Vantage API for current gold market prices
+3. Real-time prices: GoldAPI.io for live gold spot prices (direct XAU/USD pricing)
 
 ## Features
 
