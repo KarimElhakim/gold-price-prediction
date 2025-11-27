@@ -1,0 +1,60 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    # Run every 6 hours to keep models/data fresh
+    - cron: '0 */6 * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Setup directories
+        run: |
+          python -c "from app.config import Config; Config.setup_directories()"
+      
+      - name: Train models (if needed)
+        env:
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+          GOLDAPI_API_KEY: ${{ secrets.GOLDAPI_API_KEY }}
+        run: |
+          python main.py --mode train || echo "Training skipped or failed"
+        continue-on-error: true
+      
+      - name: Create deployment package
+        run: |
+          mkdir -p deploy
+          cp -r app deploy/
+          cp main.py deploy/
+          cp run_app.py deploy/
+          cp live_dashboard.py deploy/
+          cp requirements.txt deploy/
+          cp README.md deploy/
+          cp VERSION deploy/ 2>/dev/null || echo "1.0.0" > deploy/VERSION
+      
+      - name: Upload deployment package
+        uses: actions/upload-artifact@v3
+        with:
+          name: application-package
+          path: deploy/
+          retention-days: 30
+

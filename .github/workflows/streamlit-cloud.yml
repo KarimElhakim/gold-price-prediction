@@ -1,0 +1,27 @@
+name: Streamlit Cloud Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Deployment Info
+        run: |
+          echo "::notice title=Streamlit Cloud Deployment::"
+          echo "To deploy to Streamlit Cloud:"
+          echo "1. Go to https://share.streamlit.io"
+          echo "2. Connect your GitHub account"
+          echo "3. Select this repository: KarimElhakim/gold-price-prediction"
+          echo "4. Main file path: live_dashboard.py"
+          echo "5. Set environment variables:"
+          echo "   - KAGGLE_API_TOKEN"
+          echo "   - GOLDAPI_API_KEY"
+
