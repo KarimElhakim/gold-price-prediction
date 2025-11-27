@@ -1,13 +1,25 @@
 name: Deploy Dashboard to GitHub Pages
 
+# NOTE:
+# - This workflow is currently configured to run ONLY when manually triggered.
+# - This avoids failing builds while GitHub Pages is not yet fully enabled for the repository.
+# - Once you have enabled Pages (Settings → Pages → Source: GitHub Actions),
+#   you can re-enable automatic triggers (push/schedule) as needed.
+
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
-  schedule:
-    # Run every hour to keep data fresh
-    - cron: '0 * * * *'
+    inputs:
+      reason:
+        description: 'Reason for manual deployment'
+        required: false
+        default: 'Manual trigger'
+  # To enable automatic deployments after Pages is configured, uncomment:
+  # push:
+  #   branches:
+  #     - main
+  # schedule:
+  #   # Run every hour to keep data fresh
+  #   - cron: '0 * * * *'
 
 jobs:
   deploy:
@@ -90,6 +102,9 @@ jobs:
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          # Explicitly allow this workflow to configure Pages when enabled
+          enablement: true
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
