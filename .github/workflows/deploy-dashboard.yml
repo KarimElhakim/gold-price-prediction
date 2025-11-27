@@ -1,0 +1,102 @@
+name: Deploy Dashboard to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    # Run every hour to keep data fresh
+    - cron: '0 * * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install streamlit plotly pandas numpy requests feedparser textblob
+      
+      - name: Generate static dashboard HTML
+        env:
+          GOLDAPI_API_KEY: ${{ secrets.GOLDAPI_API_KEY }}
+        run: |
+          # Streamlit doesn't directly support static export, so we'll use streamlit-browser
+          # Alternative: Convert dashboard to a static HTML page
+          python -c "
+          import streamlit.web.cli as stcli
+          import sys
+          sys.argv = ['streamlit', 'run', 'live_dashboard.py', '--server.headless', 'true', '--server.port', '8501']
+          "
+      
+      - name: Build static site
+        run: |
+          # Create a simple HTML wrapper that can be hosted on GitHub Pages
+          # For full Streamlit app, consider using Streamlit Cloud instead
+          mkdir -p docs
+          cat > docs/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Gold Price Prediction Dashboard</title>
+              <meta http-equiv="refresh" content="60">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <style>
+                  body {
+                      font-family: Arial, sans-serif;
+                      background: #1E1E1E;
+                      color: white;
+                      text-align: center;
+                      padding: 2rem;
+                  }
+                  .container {
+                      max-width: 1200px;
+                      margin: 0 auto;
+                  }
+                  .note {
+                      background: #2E2E2E;
+                      padding: 1rem;
+                      border-radius: 10px;
+                      margin: 2rem 0;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>💰 Gold Price Prediction Dashboard</h1>
+                  <div class="note">
+                      <p>For the full interactive dashboard, please run locally or use Streamlit Cloud.</p>
+                      <p>Run locally: <code>streamlit run live_dashboard.py</code></p>
+                      <p>Or visit: <a href="https://share.streamlit.io">Streamlit Cloud</a></p>
+                  </div>
+              </div>
+          </body>
+          </html>
+          EOF
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
