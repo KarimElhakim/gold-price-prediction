@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Price Prediction Dashboard</title>
+    <meta http-equiv="refresh" content="3;url=https://share.streamlit.io">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1E1E1E 0%, #2E2E2E 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 215, 0, 0.3);
+            border-top: 4px solid #FFD700;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .info-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid #FFD700;
+        }
+        .button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1E1E1E;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 1rem;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.05);
+        }
+        .links {
+            margin-top: 2rem;
+        }
+        .links a {
+            color: #FFD700;
+            text-decoration: none;
+            display: block;
+            margin: 0.5rem 0;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Gold Price Prediction Dashboard</h1>
+        
+        <div class="info-box">
+            <h2>Redirecting to Streamlit Cloud...</h2>
+            <div class="spinner"></div>
+            <p>You will be redirected to the live dashboard in 3 seconds.</p>
+        </div>
+        
+        <div class="links">
+            <a href="https://share.streamlit.io" class="button">Go to Streamlit Cloud Now</a>
+            <p style="margin-top: 2rem; color: #999;">
+                To deploy:
+            </p>
+            <p style="color: #999; font-size: 0.9rem;">
+                1. Go to <a href="https://share.streamlit.io" style="color: #FFD700;">share.streamlit.io</a><br>
+                2. Connect your GitHub account<br>
+                3. Select: <code>KarimElhakim/gold-price-prediction</code><br>
+                4. Main file: <code>live_dashboard.py</code><br>
+                5. Deploy!
+            </p>
+        </div>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="color: #999; font-size: 0.8rem;">
+                Repository: <a href="https://github.com/KarimElhakim/gold-price-prediction" style="color: #FFD700;">github.com/KarimElhakim/gold-price-prediction</a>
+            </p>
+            <p style="color: #999; font-size: 0.8rem; margin-top: 0.5rem;">
+                For local deployment: <code>python run_local.py</code> or <code>.\start.ps1</code>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

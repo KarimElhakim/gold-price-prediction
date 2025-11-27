@@ -57,48 +57,26 @@ jobs:
       
       - name: Build static site
         run: |
-          # Create a simple HTML wrapper that can be hosted on GitHub Pages
-          # For full Streamlit app, consider using Streamlit Cloud instead
+          # Use the existing docs/index.html that redirects to Streamlit Cloud
           mkdir -p docs
-          cat > docs/index.html << 'EOF'
+          if [ ! -f docs/index.html ]; then
+            echo "Creating redirect page..."
+            cat > docs/index.html << 'EOF'
           <!DOCTYPE html>
           <html>
           <head>
               <title>Gold Price Prediction Dashboard</title>
-              <meta http-equiv="refresh" content="60">
+              <meta http-equiv="refresh" content="3;url=https://share.streamlit.io">
               <meta name="viewport" content="width=device-width, initial-scale=1">
-              <style>
-                  body {
-                      font-family: Arial, sans-serif;
-                      background: #1E1E1E;
-                      color: white;
-                      text-align: center;
-                      padding: 2rem;
-                  }
-                  .container {
-                      max-width: 1200px;
-                      margin: 0 auto;
-                  }
-                  .note {
-                      background: #2E2E2E;
-                      padding: 1rem;
-                      border-radius: 10px;
-                      margin: 2rem 0;
-                  }
-              </style>
           </head>
-          <body>
-              <div class="container">
-                  <h1>💰 Gold Price Prediction Dashboard</h1>
-                  <div class="note">
-                      <p>For the full interactive dashboard, please run locally or use Streamlit Cloud.</p>
-                      <p>Run locally: <code>streamlit run live_dashboard.py</code></p>
-                      <p>Or visit: <a href="https://share.streamlit.io">Streamlit Cloud</a></p>
-                  </div>
-              </div>
+          <body style="font-family: Arial; background: #1E1E1E; color: white; text-align: center; padding: 2rem;">
+              <h1>💰 Gold Price Prediction Dashboard</h1>
+              <p>Redirecting to Streamlit Cloud...</p>
+              <p><a href="https://share.streamlit.io" style="color: #FFD700;">Click here if not redirected</a></p>
           </body>
           </html>
           EOF
+          fi
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
