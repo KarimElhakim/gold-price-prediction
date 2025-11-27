@@ -25,13 +25,14 @@ The models predict both the direction of price movement (classification) and the
 
 - Direction prediction model (up/down classification)
 - Price range estimation model (regression)
-- News sentiment integration
-- Real-time API data integration
+- News sentiment integration with price impact analysis
+- Real-time API data integration (GoldAPI.io)
 - Comprehensive data visualizations
+- Live dashboard for real-time monitoring
 
 ## Setup
 
-Configure your Kaggle API token in the Configuration section of the notebook. Optional Alpha Vantage API key can be added for enhanced price data reliability.
+Configure your Kaggle API token and GoldAPI.io API key in the Configuration section of the notebook.
 
 ## Usage
 
@@ -55,4 +56,21 @@ To run the notebook locally on your machine:
    - Download TextBlob corpora: `python -m textblob.download_corpora`
    - Start Jupyter: `jupyter notebook`
 
-See [SETUP.md](SETUP.md) for detailed installation instructions and troubleshooting.
+## Dashboard
+
+Run the live dashboard for real-time gold price monitoring, news analysis, and model predictions:
+
+```bash
+streamlit run live_dashboard.py
+```
+
+Or use the helper script:
+```bash
+python run_dashboard.py
+```
+
+The dashboard provides:
+- Real-time gold price updates from GoldAPI.io
+- Latest impactful news with sentiment and price impact analysis
+- Model predictions (UP/DOWN/NEUTRAL) with confidence scores
+- Interactive price charts and performance metrics
